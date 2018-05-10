@@ -6,4 +6,5 @@ module "base_sg" {
   vpc_id      = "${module.vpc.vpc_id}"
 
   ingress_cidr_blocks = ["76.119.218.144/32"] # FIXME: set this dynamic
+  ingress_rules       = ["ssh-tcp"]
 }
