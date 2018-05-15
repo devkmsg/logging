@@ -1,0 +1,108 @@
+{
+  "revision_id": "3263ec4526be92af9061829bdbfab5873b937ff5e0481265144992b52d1b41b7",
+  "name": "base",
+  "run_list": [
+    "recipe[chef-client::config]",
+    "recipe[chef-client::default]"
+  ],
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "chef-client": {
+      "version": "10.0.5",
+      "identifier": "c24929b00cccdb95ce9b9286df6e0b1152109495",
+      "dotted_decimal_identifier": "54686588877982939.42166939103453038.12169019167893",
+      "cache_key": "chef-client-10.0.5-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/chef-client/versions/10.0.5/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/chef-client/versions/10.0.5/download",
+        "version": "10.0.5"
+      }
+    },
+    "cron": {
+      "version": "6.1.1",
+      "identifier": "bdafe22688fc65041cd1c1b0ae9bd2aaf96b6f68",
+      "dotted_decimal_identifier": "53392156442295397.1157587130166939.231631770840936",
+      "cache_key": "cron-6.1.1-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/cron/versions/6.1.1/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/cron/versions/6.1.1/download",
+        "version": "6.1.1"
+      }
+    },
+    "logrotate": {
+      "version": "2.2.0",
+      "identifier": "53e09234a4f73cc13f46d833d2e5075cafddfaa8",
+      "dotted_decimal_identifier": "23609341620057916.54394244012692197.8094668946088",
+      "cache_key": "logrotate-2.2.0-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/logrotate/versions/2.2.0/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/logrotate/versions/2.2.0/download",
+        "version": "2.2.0"
+      }
+    },
+    "windows": {
+      "version": "4.2.2",
+      "identifier": "c5aa04990015c3acee16faeb975869149d8073e4",
+      "dotted_decimal_identifier": "55637507135509955.48675478460667736.115537262703588",
+      "cache_key": "windows-4.2.2-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/windows/versions/4.2.2/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/windows/versions/4.2.2/download",
+        "version": "4.2.2"
+      }
+    }
+  },
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "chef-client",
+        "= 10.0.5"
+      ],
+      [
+        "cron",
+        "= 6.1.1"
+      ],
+      [
+        "logrotate",
+        "= 2.2.0"
+      ],
+      [
+        "windows",
+        "= 4.2.2"
+      ]
+    ],
+    "dependencies": {
+      "chef-client (10.0.5)": [
+        [
+          "cron",
+          ">= 4.2.0"
+        ],
+        [
+          "logrotate",
+          ">= 1.9.0"
+        ],
+        [
+          "windows",
+          ">= 2.0.0"
+        ]
+      ],
+      "cron (6.1.1)": [
+
+      ],
+      "logrotate (2.2.0)": [
+
+      ],
+      "windows (4.2.2)": [
+
+      ]
+    }
+  }
+}
