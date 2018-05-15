@@ -1,0 +1,9 @@
+#!/bin/bash -x
+
+# Install Chef
+curl -LO https://omnitruck.chef.io/install.sh && sudo bash ./install.sh -v 13.2.20 && rm install.sh
+
+# Initial Chef run
+mkdir -p /tmp/chef-base
+tar -zxf $HOME/base-ec964f147679f9a31dce61e14e5fecb3e65eba8bda6731c81fdba398e76f58bf.tgz # FIXME: fetch this
+sudo chef-client -z
