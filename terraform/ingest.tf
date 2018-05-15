@@ -17,6 +17,11 @@ data "aws_ami" "ingest_ami" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
 }
 
 module "asg" {
@@ -27,6 +32,7 @@ module "asg" {
   # Launch configuration
   lc_name = "ingest-lc"
 
+  key_name        = "cs-key"
   image_id        = "${data.aws_ami.ingest_ami.id}"
   instance_type   = "t2.micro"
   security_groups = ["${module.base_sg.this_security_group_id}"]
@@ -43,9 +49,10 @@ module "asg" {
   vpc_zone_identifier       = ["${module.vpc.public_subnets}"]
   health_check_type         = "EC2"
   min_size                  = 0
-  max_size                  = 0
+  max_size                  = 1
   desired_capacity          = 0
   wait_for_capacity_timeout = 0
+  user_data                 = "${file("user-data")}"
 
   tags = [
     {
