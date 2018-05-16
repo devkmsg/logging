@@ -1,9 +1,10 @@
 {
-  "revision_id": "3263ec4526be92af9061829bdbfab5873b937ff5e0481265144992b52d1b41b7",
+  "revision_id": "9dfb81c61d590f3a66a72fd2a06636b010c4f3617fa69632d89f04041c1ef70f",
   "name": "base",
   "run_list": [
     "recipe[chef-client::config]",
-    "recipe[chef-client::default]"
+    "recipe[chef-client::default]",
+    "recipe[policy-fetcher::default]"
   ],
   "included_policy_locks": [
 
@@ -42,6 +43,26 @@
         "version": "2.2.0"
       }
     },
+    "policy-fetcher": {
+      "version": "0.1.0",
+      "identifier": "98ceef69ce03579f44e7c1fb25c65111259187e5",
+      "dotted_decimal_identifier": "43011724127634263.44830283479590342.89134086588389",
+      "source": "../../cookbooks/policy-fetcher",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": "git@github.com:devkmsg/logging.git",
+        "revision": "cec071045b3c0d822116cd78390df44cd39d048b",
+        "working_tree_clean": false,
+        "published": false,
+        "synchronized_remote_branches": [
+
+        ]
+      },
+      "source_options": {
+        "path": "../../cookbooks/policy-fetcher"
+      }
+    },
     "windows": {
       "version": "4.2.2",
       "identifier": "c5aa04990015c3acee16faeb975869149d8073e4",
@@ -75,6 +96,10 @@
         "= 2.2.0"
       ],
       [
+        "policy-fetcher",
+        ">= 0.0.0"
+      ],
+      [
         "windows",
         "= 4.2.2"
       ]
@@ -98,6 +123,9 @@
 
       ],
       "logrotate (2.2.0)": [
+
+      ],
+      "policy-fetcher (0.1.0)": [
 
       ],
       "windows (4.2.2)": [
