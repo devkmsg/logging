@@ -1,0 +1,6 @@
+desc 'Upload index to S3'
+task :upload do
+  sh "aws s3 cp index.json s3://artifacts-backend --storage-class REDUCED_REDUNDANCY"
+end
+
+task :default => [:upload]

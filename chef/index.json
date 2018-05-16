@@ -1,0 +1,6 @@
+{
+    "server": "http://artifacts-backend.s3-website-us-east-1.amazonaws.com",
+	"roles": {
+		"base": "base-9dfb81c61d590f3a66a72fd2a06636b010c4f3617fa69632d89f04041c1ef70f.tgz"
+	}
+}
