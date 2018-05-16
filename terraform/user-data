@@ -1,9 +1,20 @@
 #!/bin/bash -x
 
+# Vars
+export BASE_TARBALL=base-9dfb81c61d590f3a66a72fd2a06636b010c4f3617fa69632d89f04041c1ef70f.tgz
+
+# Setup
+cd /tmp
+
 # Install Chef
 curl -LO https://omnitruck.chef.io/install.sh && sudo bash ./install.sh -v 13.2.20 && rm install.sh
 
-# Initial Chef run
+# Download base policy
 mkdir -p /tmp/chef-base
-tar -zxf $HOME/base-ec964f147679f9a31dce61e14e5fecb3e65eba8bda6731c81fdba398e76f58bf.tgz # FIXME: fetch this
+curl -LO http://artifacts-backend.s3-website-us-east-1.amazonaws.com/roles/$BASE_TARBALL
+tar -C /tmp/chef-base -xzf /tmp/$BASE_TARBALL
+rm /tmp/$BASE_TARBALL
+
+# Initial Chef run
+cd /tmp/chef-base
 sudo chef-client -z
