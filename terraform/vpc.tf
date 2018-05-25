@@ -6,6 +6,7 @@ module "vpc" {
 
   azs            = ["us-east-1a", "us-east-1b"]
   public_subnets = ["10.0.0.0/28", "10.0.0.16/28"]
+  # TODO: add private subnets
 
   enable_s3_endpoint = true
 
