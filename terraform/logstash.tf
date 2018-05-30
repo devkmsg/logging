@@ -1,25 +1,29 @@
 ## This file represents the ingest layer
 
-module "ingest_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name = "ingest-p01"
+resource "aws_security_group" "logstash_sg" {
+  name        = "logstash"
   vpc_id      = "${module.vpc.vpc_id}"
-  description = "Ingest p01"
-
-  egress_ipv6_cidr_blocks = []
-  egress_with_source_security_group_id = [
-    {
-      rule                     = "elasticsearch-rest-tcp"
-      source_security_group_id = "${module.store_sg.this_security_group_id}"
-    }
-  ]
+  description = "Logstash"
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
   }
 }
+
+resource "aws_security_group_rule" "logstash_egress_to_elasticsearch" {
+
+  security_group_id = "${aws_security_group.logstash_sg.id}"
+  type              = "egress"
+
+  source_security_group_id      = "${aws_security_group.elasticsearch_sg.id}"
+  description      = "ES port"
+
+  from_port = 9200
+  to_port   = 9200
+  protocol  = "tcp"
+}
+
 
 #resource "aws_ecs_task_definition" "elasticsearch" {
 #  family                = "elasticsearch"

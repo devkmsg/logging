@@ -1,0 +1,44 @@
+[
+  {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/kibana",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 5601,
+        "hostPort": 5601
+      }
+    ],
+    "cpu": 512,
+    "environment": [
+      {
+        "name": "ELASTICSEARCH_URL",
+        "value": "http://elasticsearch-p01.local:9200"
+      }
+    ],
+    "memory": 1024,
+    "memoryReservation": 512,
+    "image": "docker.elastic.co/kibana/kibana-oss:6.2.4",
+    "healthCheck": {
+      "retries": 3,
+      "command": [
+        "CMD-SHELL",
+        "curl -f http://localhost:5601 || exit 1"
+      ],
+      "timeout": 5,
+      "interval": 30,
+      "startPeriod": 120
+    },
+    "essential": true,
+    "dockerLabels": {
+      "Service": "Kibana"
+    },
+    "name": "kibana"
+  }
+]
