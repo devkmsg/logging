@@ -19,7 +19,7 @@
     "environment": [
       {
         "name": "ELASTICSEARCH_URL",
-        "value": "http://elasticsearch-p01.local:9200"
+        "value": "http://elasticsearch.local:9200"
       }
     ],
     "memory": 1024,

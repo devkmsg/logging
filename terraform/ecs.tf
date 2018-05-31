@@ -26,6 +26,31 @@ data "aws_ssm_parameter" "ecs_ami" {
 locals {
   ami_id = "ami-5253c32d"
 }
+data "aws_iam_policy_document" "instance-assume-role-policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "ecsInstanceRole" {
+  name = "ecsInstanceRole1"
+  assume_role_policy = "${data.aws_iam_policy_document.instance-assume-role-policy.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "ecsInstanceRole-attach" {
+    role       = "${aws_iam_role.ecsInstanceRole.name}"
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+
+resource "aws_iam_instance_profile" "ecsInstanceRole" {
+  name = "ecsInstanceRole1"
+  role = "${aws_iam_role.ecsInstanceRole.name}"
+}
 
 module "ecs_asg" {
   source = "terraform-aws-modules/autoscaling/aws"
@@ -39,9 +64,8 @@ module "ecs_asg" {
   image_id        = "${local.ami_id}"
   instance_type   = "t2.medium"
   spot_price = 0.0139
-  security_groups = ["${module.base_sg.this_security_group_id}"]
-
-  #FIXME: add iam policy
+  security_groups = ["${module.base_sg.this_security_group_id}", "${module.ecs_sg.this_security_group_id}"]
+  iam_instance_profile = "${aws_iam_instance_profile.ecsInstanceRole.arn}"
 
   # Auto scaling group
   asg_name                  = "loggingv1"

@@ -9,6 +9,7 @@ module "vpc" {
   # TODO: add private subnets
 
   enable_s3_endpoint = true
+  enable_dns_hostnames = true
 
   tags = {
     Terraform   = "true"

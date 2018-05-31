@@ -5,7 +5,7 @@ module "base_sg" {
   description = "Base Security group"
   vpc_id      = "${module.vpc.vpc_id}"
 
-  ingress_cidr_blocks = ["76.119.218.144/32"] # FIXME: set this dynamic
+  ingress_cidr_blocks = ["${var.allow_from}"]
   ingress_rules       = ["ssh-tcp"]
 
   egress_cidr_blocks = ["0.0.0.0/0"]
@@ -18,7 +18,23 @@ module "base_sg" {
       protocol    = "udp"
       description = "NTP"
       cidr_blocks = "0.0.0.0/0"
-    },
+    }
   ]
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
-# FIXME: tags
+
+module "ecs_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "ecs_base"
+  description = "ECS Base Security group"
+  vpc_id      = "${module.vpc.vpc_id}"
+
+  egress_cidr_blocks = ["0.0.0.0/0"]
+  egress_ipv6_cidr_blocks = []
+  egress_rules = ["http-80-tcp"]
+}
